@@ -1,0 +1,33 @@
+<RCC>
+  <qresource>
+    <file>Help and guide.pdf</file>
+    <file>icons/x-button.png</file>
+    <file>icons/off-button.png</file>
+    <file>icons/toggle-button.png</file>
+    <file>icons/Real time.png</file>
+    <file>icons/Real time.png</file>
+    <file>icons/check-mail.png</file>
+    <file>icons/File scan.png</file>
+    <file>icons/Password check.png</file>
+    <file>icons/Real time scan.png</file>
+    <file>icons/system scan.png</file>
+    <file>icons/menu.png</file>
+    <file>icons/Help.png</file>
+    <file>icons/home.png</file>
+    <file>icons/icons8-help-50.png</file>
+    <file>icons/icons8-home-50.png</file>
+    <file>icons/icons8-notification-50.png</file>
+    <file>icons/icons8-protect-50.png</file>
+    <file>icons/icons8-settings-50.png</file>
+    <file>icons/Logo - Secure Drive.png</file>
+    <file>icons/Notifcation.png</file>
+    <file>icons/protection.png</file>
+    <file>icons/Settings.png</file>
+    <file>icons/Help.png</file>
+    <file>icons/home.png</file>
+    <file>icons/Logo - Secure Drive.png</file>
+    <file>icons/Notifcation.png</file>
+    <file>icons/protection.png</file>
+    <file>icons/Settings.png</file>
+  </qresource>
+</RCC>
