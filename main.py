@@ -19,7 +19,7 @@ class SplashScreen(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
-
+    
     splash = SplashScreen()
     splash.show()
 
