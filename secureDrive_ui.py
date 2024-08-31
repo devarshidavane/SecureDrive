@@ -152,7 +152,7 @@ class Ui_MainWindow(object):
 
         self.System_scan_widget = QWidget(self.Homepage)
         self.System_scan_widget.setObjectName(u"System_scan_widget")
-        self.System_scan_widget.setGeometry(QRect(20, 90, 270, 141))
+        self.System_scan_widget.setGeometry(QRect(20, 90, 251, 151))
         self.System_scan_widget.setStyleSheet(u"QWidget{\n"
 "background-color: rgb(76, 76, 76);\n"
 "border-radius: 12px;\n"
@@ -215,20 +215,20 @@ class Ui_MainWindow(object):
 
         self.File_Scan_widget = QWidget(self.Homepage)
         self.File_Scan_widget.setObjectName(u"File_Scan_widget")
-        self.File_Scan_widget.setGeometry(QRect(300, 90, 244, 141))
+        self.File_Scan_widget.setGeometry(QRect(300, 90, 244, 151))
         self.File_Scan_widget.setStyleSheet(u"QWidget{\n"
 "background-color: rgb(76, 76, 76);\n"
 "border-radius: 12px;\n"
 "}")
-        self.gridLayout_9 = QGridLayout(self.File_Scan_widget)
-        self.gridLayout_9.setObjectName(u"gridLayout_9")
+        self.gridLayout_13 = QGridLayout(self.File_Scan_widget)
+        self.gridLayout_13.setObjectName(u"gridLayout_13")
         self.File_scan_title = QLabel(self.File_Scan_widget)
         self.File_scan_title.setObjectName(u"File_scan_title")
         self.File_scan_title.setFont(font1)
         self.File_scan_title.setStyleSheet(u"color: rgb(255, 255, 255);")
         self.File_scan_title.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_9.addWidget(self.File_scan_title, 0, 1, 2, 3)
+        self.gridLayout_13.addWidget(self.File_scan_title, 0, 0, 1, 2)
 
         self.verticalLayout_9 = QVBoxLayout()
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
@@ -244,10 +244,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.addWidget(self.File_scan_logo)
 
 
-        self.gridLayout_9.addLayout(self.verticalLayout_9, 2, 0, 3, 2)
+        self.gridLayout_13.addLayout(self.verticalLayout_9, 1, 0, 1, 1)
 
-        self.File_scan_info = QVBoxLayout()
-        self.File_scan_info.setObjectName(u"File_scan_info")
+        self.gridLayout_9 = QGridLayout()
+        self.gridLayout_9.setObjectName(u"gridLayout_9")
         self.label_9 = QLabel(self.File_Scan_widget)
         self.label_9.setObjectName(u"label_9")
         font3 = QFont()
@@ -255,59 +255,41 @@ class Ui_MainWindow(object):
         self.label_9.setFont(font3)
         self.label_9.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-        self.File_scan_info.addWidget(self.label_9)
+        self.gridLayout_9.addWidget(self.label_9, 0, 0, 1, 1)
 
         self.label_10 = QLabel(self.File_Scan_widget)
         self.label_10.setObjectName(u"label_10")
         self.label_10.setFont(font3)
         self.label_10.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-        self.File_scan_info.addWidget(self.label_10)
+        self.gridLayout_9.addWidget(self.label_10, 1, 0, 1, 1)
 
         self.label_11 = QLabel(self.File_Scan_widget)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setFont(font3)
         self.label_11.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-        self.File_scan_info.addWidget(self.label_11)
+        self.gridLayout_9.addWidget(self.label_11, 2, 0, 1, 1)
 
 
-        self.gridLayout_9.addLayout(self.File_scan_info, 3, 2, 2, 3)
+        self.gridLayout_13.addLayout(self.gridLayout_9, 1, 1, 1, 1)
 
         self.Real_time_scan_widget = QWidget(self.Homepage)
         self.Real_time_scan_widget.setObjectName(u"Real_time_scan_widget")
-        self.Real_time_scan_widget.setGeometry(QRect(570, 90, 251, 141))
+        self.Real_time_scan_widget.setGeometry(QRect(561, 90, 242, 151))
         self.Real_time_scan_widget.setStyleSheet(u"QWidget{\n"
 "background-color: rgb(76, 76, 76);\n"
 "border-radius: 12px;\n"
 "}")
-        self.gridLayout_8 = QGridLayout(self.Real_time_scan_widget)
-        self.gridLayout_8.setObjectName(u"gridLayout_8")
-        self.Real_time_scan_info = QVBoxLayout()
-        self.Real_time_scan_info.setObjectName(u"Real_time_scan_info")
-        self.label_17 = QLabel(self.Real_time_scan_widget)
-        self.label_17.setObjectName(u"label_17")
-        self.label_17.setFont(font3)
-        self.label_17.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.gridLayout_14 = QGridLayout(self.Real_time_scan_widget)
+        self.gridLayout_14.setObjectName(u"gridLayout_14")
+        self.Real_time_scan_title = QLabel(self.Real_time_scan_widget)
+        self.Real_time_scan_title.setObjectName(u"Real_time_scan_title")
+        self.Real_time_scan_title.setFont(font1)
+        self.Real_time_scan_title.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.Real_time_scan_title.setAlignment(Qt.AlignCenter)
 
-        self.Real_time_scan_info.addWidget(self.label_17)
-
-        self.label_18 = QLabel(self.Real_time_scan_widget)
-        self.label_18.setObjectName(u"label_18")
-        self.label_18.setFont(font3)
-        self.label_18.setStyleSheet(u"color: rgb(255, 255, 255);")
-
-        self.Real_time_scan_info.addWidget(self.label_18)
-
-        self.label_19 = QLabel(self.Real_time_scan_widget)
-        self.label_19.setObjectName(u"label_19")
-        self.label_19.setFont(font3)
-        self.label_19.setStyleSheet(u"color: rgb(255, 255, 255);")
-
-        self.Real_time_scan_info.addWidget(self.label_19)
-
-
-        self.gridLayout_8.addLayout(self.Real_time_scan_info, 3, 2, 1, 3)
+        self.gridLayout_14.addWidget(self.Real_time_scan_title, 0, 0, 1, 2)
 
         self.Real_time_scan_logo = QPushButton(self.Real_time_scan_widget)
         self.Real_time_scan_logo.setObjectName(u"Real_time_scan_logo")
@@ -318,15 +300,33 @@ class Ui_MainWindow(object):
         self.Real_time_scan_logo.setIcon(icon7)
         self.Real_time_scan_logo.setIconSize(QSize(80, 100))
 
-        self.gridLayout_8.addWidget(self.Real_time_scan_logo, 2, 0, 2, 2)
+        self.gridLayout_14.addWidget(self.Real_time_scan_logo, 1, 0, 1, 1)
 
-        self.Real_time_scan_title = QLabel(self.Real_time_scan_widget)
-        self.Real_time_scan_title.setObjectName(u"Real_time_scan_title")
-        self.Real_time_scan_title.setFont(font1)
-        self.Real_time_scan_title.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.Real_time_scan_title.setAlignment(Qt.AlignCenter)
+        self.gridLayout_8 = QGridLayout()
+        self.gridLayout_8.setObjectName(u"gridLayout_8")
+        self.label_17 = QLabel(self.Real_time_scan_widget)
+        self.label_17.setObjectName(u"label_17")
+        self.label_17.setFont(font3)
+        self.label_17.setStyleSheet(u"color: rgb(255, 255, 255);")
 
-        self.gridLayout_8.addWidget(self.Real_time_scan_title, 0, 1, 2, 3)
+        self.gridLayout_8.addWidget(self.label_17, 0, 0, 1, 1)
+
+        self.label_18 = QLabel(self.Real_time_scan_widget)
+        self.label_18.setObjectName(u"label_18")
+        self.label_18.setFont(font3)
+        self.label_18.setStyleSheet(u"color: rgb(255, 255, 255);")
+
+        self.gridLayout_8.addWidget(self.label_18, 1, 0, 1, 1)
+
+        self.label_19 = QLabel(self.Real_time_scan_widget)
+        self.label_19.setObjectName(u"label_19")
+        self.label_19.setFont(font3)
+        self.label_19.setStyleSheet(u"color: rgb(255, 255, 255);")
+
+        self.gridLayout_8.addWidget(self.label_19, 2, 0, 1, 1)
+
+
+        self.gridLayout_14.addLayout(self.gridLayout_8, 1, 1, 1, 1)
 
         self.Email_Breacher_check_Widget = QWidget(self.Homepage)
         self.Email_Breacher_check_Widget.setObjectName(u"Email_Breacher_check_Widget")
@@ -388,7 +388,7 @@ class Ui_MainWindow(object):
 
         self.Password_breacher_widget = QWidget(self.Homepage)
         self.Password_breacher_widget.setObjectName(u"Password_breacher_widget")
-        self.Password_breacher_widget.setGeometry(QRect(390, 280, 261, 151))
+        self.Password_breacher_widget.setGeometry(QRect(390, 280, 241, 151))
         self.Password_breacher_widget.setStyleSheet(u"QWidget{\n"
 "background-color: rgb(76, 76, 76);\n"
 "border-radius: 12px;\n"
@@ -445,6 +445,28 @@ class Ui_MainWindow(object):
         self.gridLayout_6.addLayout(self.verticalLayout_5, 2, 1, 1, 1)
 
         self.stackedWidget.addWidget(self.Homepage)
+        self.Scans = QWidget()
+        self.Scans.setObjectName(u"Scans")
+        self.stackedWidget_2 = QStackedWidget(self.Scans)
+        self.stackedWidget_2.setObjectName(u"stackedWidget_2")
+        self.stackedWidget_2.setGeometry(QRect(0, 10, 801, 431))
+        self.Real_time_scan = QWidget()
+        self.Real_time_scan.setObjectName(u"Real_time_scan")
+        self.pushButton_2 = QPushButton(self.Real_time_scan)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_2.setGeometry(QRect(340, 150, 93, 28))
+        self.pushButton_2.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.stackedWidget_2.addWidget(self.Real_time_scan)
+        self.System_scan = QWidget()
+        self.System_scan.setObjectName(u"System_scan")
+        self.stackedWidget_2.addWidget(self.System_scan)
+        self.page = QWidget()
+        self.page.setObjectName(u"page")
+        self.stackedWidget_2.addWidget(self.page)
+        self.page_2 = QWidget()
+        self.page_2.setObjectName(u"page_2")
+        self.stackedWidget_2.addWidget(self.page_2)
+        self.stackedWidget.addWidget(self.Scans)
         self.Protection_page = QWidget()
         self.Protection_page.setObjectName(u"Protection_page")
         self.Protection_page_catch_line = QWidget(self.Protection_page)
@@ -480,6 +502,7 @@ class Ui_MainWindow(object):
 
         self.protection_switch = QPushButton(self.Protection_page_imag_widgete)
         self.protection_switch.setObjectName(u"protection_switch")
+        self.protection_switch.setStyleSheet(u"border:none;")
         icon10 = QIcon()
         icon10.addFile(u":/icons/off-button.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         icon10.addFile(u":/icons/toggle-button.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
@@ -558,107 +581,60 @@ class Ui_MainWindow(object):
 "font: 15pt \"Sitka\";")
         self.Setting_options = QWidget(self.settings_page)
         self.Setting_options.setObjectName(u"Setting_options")
-        self.Setting_options.setGeometry(QRect(50, 100, 682, 202))
+        self.Setting_options.setGeometry(QRect(50, 110, 682, 161))
         self.Setting_options.setStyleSheet(u"QWidget{\n"
 "background-color: rgb(76, 76, 76);\n"
 "\n"
 "}")
-        self.gridLayout_13 = QGridLayout(self.Setting_options)
-        self.gridLayout_13.setObjectName(u"gridLayout_13")
-        self.pushButton_6 = QPushButton(self.Setting_options)
-        self.pushButton_6.setObjectName(u"pushButton_6")
-        self.pushButton_6.setStyleSheet(u"QPushButton{\n"
-"border:none;\n"
-"	color: rgb(255, 255, 255);\n"
-"	font: 12pt \"MS Shell Dlg 2\";\n"
-"	text-align: left;\n"
-"}")
-
-        self.gridLayout_13.addWidget(self.pushButton_6, 0, 0, 1, 2)
-
-        self.label_2 = QLabel(self.Setting_options)
-        self.label_2.setObjectName(u"label_2")
-        font7 = QFont()
-        font7.setFamilies([u"MS Shell Dlg 2"])
-        font7.setPointSize(6)
-        font7.setBold(False)
-        font7.setItalic(False)
-        self.label_2.setFont(font7)
-        self.label_2.setStyleSheet(u"QLabel{\n"
-"font: 6pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 255, 255);\n"
-"}")
-
-        self.gridLayout_13.addWidget(self.label_2, 1, 0, 1, 1)
-
-        self.line_2 = QFrame(self.Setting_options)
-        self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.Shape.HLine)
-        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_13.addWidget(self.line_2, 2, 0, 1, 3)
-
         self.pushButton = QPushButton(self.Setting_options)
         self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setGeometry(QRect(11, 10, 101, 24))
         self.pushButton.setStyleSheet(u"QPushButton{\n"
 "border:none;\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 12pt \"MS Shell Dlg 2\";\n"
 "	text-align: left;\n"
 "}")
-
-        self.gridLayout_13.addWidget(self.pushButton, 3, 0, 2, 1)
-
-        self.pushButton_2 = QPushButton(self.Setting_options)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setStyleSheet(u"QPushButton{\n"
+        self.Notification_toggle = QPushButton(self.Setting_options)
+        self.Notification_toggle.setObjectName(u"Notification_toggle")
+        self.Notification_toggle.setGeometry(QRect(600, 10, 64, 60))
+        self.Notification_toggle.setStyleSheet(u"QPushButton{\n"
 "border:none;\n"
 "text-align:right;\n"
 "}")
         icon11 = QIcon()
         icon11.addFile(u":/icons/off-button.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         icon11.addFile(u":/icons/toggle-button.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.pushButton_2.setIcon(icon11)
-        self.pushButton_2.setIconSize(QSize(60, 60))
-
-        self.gridLayout_13.addWidget(self.pushButton_2, 3, 2, 3, 1)
-
-        self.label_3 = QLabel(self.Setting_options)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setStyleSheet(u"QLabel{\n"
+        self.Notification_toggle.setIcon(icon11)
+        self.Notification_toggle.setIconSize(QSize(60, 60))
+        self.Notification_about = QLabel(self.Setting_options)
+        self.Notification_about.setObjectName(u"Notification_about")
+        self.Notification_about.setGeometry(QRect(10, 40, 144, 16))
+        self.Notification_about.setStyleSheet(u"QLabel{\n"
 "font: 6pt \"MS Shell Dlg 2\";\n"
 "color: rgb(255, 255, 255);\n"
 "}")
-
-        self.gridLayout_13.addWidget(self.label_3, 5, 0, 1, 1)
-
-        self.line_6 = QFrame(self.Setting_options)
-        self.line_6.setObjectName(u"line_6")
-        self.line_6.setFrameShape(QFrame.Shape.HLine)
-        self.line_6.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_13.addWidget(self.line_6, 6, 0, 1, 3)
-
+        self.DIvider = QFrame(self.Setting_options)
+        self.DIvider.setObjectName(u"DIvider")
+        self.DIvider.setGeometry(QRect(11, 70, 660, 16))
+        self.DIvider.setFrameShape(QFrame.Shape.HLine)
+        self.DIvider.setFrameShadow(QFrame.Shadow.Sunken)
         self.pushButton_3 = QPushButton(self.Setting_options)
         self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setGeometry(QRect(11, 90, 168, 24))
         self.pushButton_3.setStyleSheet(u"QPushButton{\n"
 "border:none;\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 12pt \"MS Shell Dlg 2\";\n"
 "	text-align: left;\n"
 "}")
-
-        self.gridLayout_13.addWidget(self.pushButton_3, 7, 0, 1, 2)
-
         self.label_4 = QLabel(self.Setting_options)
         self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(10, 120, 79, 16))
         self.label_4.setStyleSheet(u"QLabel{\n"
 "font: 6pt \"MS Shell Dlg 2\";\n"
 "color: rgb(255, 255, 255);\n"
 "}")
-
-        self.gridLayout_13.addWidget(self.label_4, 8, 0, 1, 1)
-
         self.stackedWidget.addWidget(self.settings_page)
         self.Languages = QWidget()
         self.Languages.setObjectName(u"Languages")
@@ -669,12 +645,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.label = QLabel(self.widget)
         self.label.setObjectName(u"label")
-        font8 = QFont()
-        font8.setFamilies([u"MS Shell Dlg 2"])
-        font8.setPointSize(14)
-        font8.setBold(False)
-        font8.setItalic(False)
-        self.label.setFont(font8)
+        font7 = QFont()
+        font7.setFamilies([u"MS Shell Dlg 2"])
+        font7.setPointSize(14)
+        font7.setBold(False)
+        font7.setItalic(False)
+        self.label.setFont(font7)
         self.label.setStyleSheet(u"QLabel{\n"
 "	font: 75 14pt \"MS Shell Dlg 2\";\n"
 "color: rgb(255, 255, 255);\n"
@@ -793,12 +769,14 @@ class Ui_MainWindow(object):
         self.protection_switch.pressed.connect(self.protection_switch.animateClick)
         self.Notification.clicked.connect(self.stackedWidget.show)
         self.settings.clicked.connect(self.stackedWidget.show)
-        self.pushButton_2.clicked["bool"].connect(self.pushButton_2.animateClick)
-        self.pushButton_6.clicked.connect(self.pushButton_6.show)
+        self.Notification_toggle.clicked["bool"].connect(self.Notification_toggle.animateClick)
         self.pushButton.clicked.connect(self.Notification.toggle)
         self.Protection.toggled.connect(self.stackedWidget.show)
         self.Home.clicked.connect(self.stackedWidget.show)
         self.About.clicked.connect(self.Scroll_widget.show)
+
+        self.stackedWidget.setCurrentIndex(0)
+
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -825,11 +803,11 @@ class Ui_MainWindow(object):
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"File scan checks ", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Selected files for", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Threats and reports", None))
+        self.Real_time_scan_title.setText(QCoreApplication.translate("MainWindow", u"Real-Time Scan", None))
+        self.Real_time_scan_logo.setText("")
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Files are scanned", None))
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Automatically for ", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Creation for threats", None))
-        self.Real_time_scan_logo.setText("")
-        self.Real_time_scan_title.setText(QCoreApplication.translate("MainWindow", u"Real-Time Scan", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Email-Breach Checker", None))
         self.pushButton_9.setText("")
         self.label_20.setText(QCoreApplication.translate("MainWindow", u"Check emails for", None))
@@ -840,17 +818,16 @@ class Ui_MainWindow(object):
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Check password", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"exposure and", None))
         self.label_25.setText(QCoreApplication.translate("MainWindow", u"get advice.", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.Protection_catch_line.setText(QCoreApplication.translate("MainWindow", u"Seamless Security with the Real-time Detection", None))
         self.Protection_image.setText("")
         self.protection_switch.setText("")
         self.Notification_2.setText(QCoreApplication.translate("MainWindow", u"Notifications", None))
         self.Help_Guide.setText(QCoreApplication.translate("MainWindow", u"Help and Guides", None))
         self.Setting_title.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
-        self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"Choose a language", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Change the product langauge", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Notification", None))
-        self.pushButton_2.setText("")
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Get product relation information", None))
+        self.Notification_toggle.setText("")
+        self.Notification_about.setText(QCoreApplication.translate("MainWindow", u"Get product relation information", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Application Update", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Check for update", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Choose a preferred Language", None))

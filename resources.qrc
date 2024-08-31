@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>icons/push_button.png</file>
     <file>Help and guide.pdf</file>
     <file>icons/x-button.png</file>
     <file>icons/off-button.png</file>
