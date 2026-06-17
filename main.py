@@ -1,9 +1,15 @@
 import sys
+from pathlib import Path
+
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QApplication, QLabel, QMainWindow
 
 from securedrive import MainWindow
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+SPLASH_LOGO_PATH = PROJECT_ROOT / "Logo - Secure Drive.png"
 
 class SplashScreen(QMainWindow):
     def __init__(self):
@@ -13,7 +19,9 @@ class SplashScreen(QMainWindow):
         self.setStyleSheet("background-color: #FF3131;")  # Set background color to red
         self.label = QLabel(self)
         
-        self.label.setPixmap(QPixmap(r"C:\Dmce\Secure drive\UI\QT\Logo - Secure Drive.png").scaled(600, 400, Qt.KeepAspectRatio))
+        self.label.setPixmap(
+            QPixmap(str(SPLASH_LOGO_PATH)).scaled(600, 400, Qt.KeepAspectRatio)
+        )
         self.label.setAlignment(Qt.AlignCenter)
         self.setCentralWidget(self.label)
 
