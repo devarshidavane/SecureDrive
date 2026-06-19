@@ -2,7 +2,7 @@
 
 Secure Drive is a Windows desktop antivirus-style application built with PySide6.
 
-## Current Phase 1 Baseline
+## Project Structure
 
 - App entry point: `main.py`
 - Main window/controller: `securedrive.py`
@@ -11,6 +11,9 @@ Secure Drive is a Windows desktop antivirus-style application built with PySide6
 - Resource bundle source: `resources.qrc`
 - Generated resource module: `resources_rc.py`
 - Real-time scanner: `Scans/Real_time_scan.py`
+- Shared scan engine: `Scans/scanner.py`
+- Full-scan entry point: `Scans/full_scan.py`
+- Signature updater: `Scans/database.py`
 - Malware hash database: `Malware Hash Database/hashes.db`
 
 `secureDrive_ui.py` and `secure Drive.ui` are older/alternate UI outputs and are not imported by the app entry point.
@@ -35,4 +38,5 @@ Run the app:
 - The real-time scanner watches the user's Desktop and Downloads folders.
 - Detected files are moved into `Quarantine/`.
 - Threat detections are appended to `threat_log.txt`.
-- Full scan and database update integration are intentionally left for later phases.
+- Full scans and signature updates run in background Qt processes.
+- Backend progress and completion messages appear on the Notifications page.

@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 import psutil
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QProcess, Qt
 from PySide6.QtWidgets import QLabel, QMainWindow
 
 from ui_secureDrive import Ui_MainWindow
@@ -18,8 +18,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.project_root = Path(__file__).resolve().parent
         self.scans_dir = self.project_root / "Scans"
-        self.full_scan_script_path = str(self.scans_dir / "Full_Scan_Part_2.py")
-        self.database_update_script_path = str(self.scans_dir / "Update_Database.py")
+        self.full_scan_script_path = str(self.scans_dir / "full_scan.py")
+        self.database_update_script_path = str(self.scans_dir / "database.py")
         self.realtime_process = None
         self.realtime_script_path = str(
             self.scans_dir / "Real_time_scan.py"
@@ -27,6 +27,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.full_scan_process = None
         self.database_update_process = None
+        self._backend_output_buffers = {}
+        self._backend_last_output = {}
 
         self._init_protection_status_label()
         self._init_backend_status_label()
@@ -187,7 +189,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def _start_backend_process(self, script_path: str, process_attr: str, label: str):
         existing = getattr(self, process_attr)
-        if existing and existing.poll() is None:
+        if existing and existing.state() != QProcess.ProcessState.NotRunning:
             self._set_backend_status(f"{label} is already running.", None)
             self.switch_to_Notification_page()
             return
@@ -198,17 +200,93 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             return
 
         try:
-            process = subprocess.Popen(
-                [sys.executable, script_path],
-                cwd=str(self.project_root),
-                creationflags=subprocess.CREATE_NEW_CONSOLE,
+            process = QProcess(self)
+            process.setProgram(sys.executable)
+            process.setArguments(["-u", script_path])
+            process.setWorkingDirectory(str(self.project_root))
+            process.setProcessChannelMode(
+                QProcess.ProcessChannelMode.MergedChannels
             )
+            process.readyReadStandardOutput.connect(
+                lambda: self._read_backend_output(process, process_attr)
+            )
+            process.finished.connect(
+                lambda exit_code, exit_status: self._finish_backend_process(
+                    process,
+                    process_attr,
+                    label,
+                    exit_code,
+                    exit_status,
+                )
+            )
+
             setattr(self, process_attr, process)
+            self._backend_output_buffers[process_attr] = ""
+            self._backend_last_output[process_attr] = ""
+            process.start()
+
+            if not process.waitForStarted(1500):
+                raise RuntimeError(process.errorString())
+
             self._set_backend_status(f"{label} started.", True)
             self.switch_to_Notification_page()
         except Exception as e:
+            setattr(self, process_attr, None)
             self._set_backend_status(f"Error starting {label.lower()}: {e}", False)
             self.switch_to_Notification_page()
+
+    def _read_backend_output(self, process: QProcess, process_attr: str):
+        output = bytes(process.readAllStandardOutput()).decode(
+            "utf-8",
+            errors="replace",
+        )
+        buffered = self._backend_output_buffers.get(process_attr, "") + output
+        lines = buffered.splitlines(keepends=True)
+
+        if lines and not lines[-1].endswith(("\n", "\r")):
+            self._backend_output_buffers[process_attr] = lines.pop()
+        else:
+            self._backend_output_buffers[process_attr] = ""
+
+        for line in lines:
+            message = line.strip()
+            if not message:
+                continue
+            self._backend_last_output[process_attr] = message
+            self._set_backend_status(message, None)
+
+    def _finish_backend_process(
+        self,
+        process: QProcess,
+        process_attr: str,
+        label: str,
+        exit_code: int,
+        exit_status: QProcess.ExitStatus,
+    ):
+        self._read_backend_output(process, process_attr)
+        trailing_output = self._backend_output_buffers.pop(process_attr, "").strip()
+        if trailing_output:
+            self._backend_last_output[process_attr] = trailing_output
+
+        last_output = self._backend_last_output.pop(process_attr, "")
+        succeeded = (
+            exit_status == QProcess.ExitStatus.NormalExit
+            and exit_code == 0
+        )
+
+        if succeeded:
+            message = last_output or f"{label} completed successfully."
+            self._set_backend_status(message, True)
+        else:
+            detail = f" Last output: {last_output}" if last_output else ""
+            self._set_backend_status(
+                f"{label} failed with exit code {exit_code}.{detail}",
+                False,
+            )
+
+        if getattr(self, process_attr) is process:
+            setattr(self, process_attr, None)
+        process.deleteLater()
 
     def start_full_scan(self):
         self._start_backend_process(
