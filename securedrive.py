@@ -5,7 +5,7 @@ from pathlib import Path
 
 import psutil
 from PySide6.QtCore import QProcess, Qt
-from PySide6.QtWidgets import QLabel, QMainWindow
+from PySide6.QtWidgets import QLabel, QMainWindow, QFileDialog, QMessageBox, QInputDialog, QLineEdit
 
 from ui_secureDrive import Ui_MainWindow
 
@@ -43,6 +43,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.Notification.clicked.connect(self.switch_to_Notification_page)
         self.About.clicked.connect(self.switch_to_About_page)
         self.settings.clicked.connect(self.switch_to_Settings_page)
+
+        self.File_scan_logo.clicked.connect(self.start_file_scan)
+        self.Password_breach_logo.clicked.connect(self.check_password_breach)
+        self.pushButton_9.clicked.connect(self.check_email_breach)
 
     def switch_to_Homepage(self):
         self.stackedWidget.setCurrentIndex(0)
@@ -301,3 +305,57 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "database_update_process",
             "Database update",
         )
+
+    def start_file_scan(self):
+        file_path, _ = QFileDialog.getOpenFileName(self, "Select File to Scan")
+        if not file_path:
+            return
+            
+        import sys
+        if str(self.scans_dir) not in sys.path:
+            sys.path.append(str(self.scans_dir))
+            
+        try:
+            from scanner import scan_file
+            self._set_backend_status(f"Scanning file: {file_path}", None)
+            is_threat = scan_file(file_path, quarantine=True)
+            if is_threat:
+                QMessageBox.warning(self, "Threat Detected", "The file is a threat and has been quarantined.")
+                self._set_backend_status("File scan complete: Threat quarantined.", False)
+            else:
+                QMessageBox.information(self, "Scan Complete", "No threats found in the file.")
+                self._set_backend_status("File scan complete: Clean.", True)
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to scan file: {e}")
+            self._set_backend_status(f"File scan error: {e}", False)
+
+    def check_password_breach(self):
+        import hashlib
+        import requests
+        
+        password, ok = QInputDialog.getText(self, "Password Check", "Enter password to check:", QLineEdit.Password)
+        if ok and password:
+            sha1_password = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+            prefix = sha1_password[:5]
+            suffix = sha1_password[5:]
+            try:
+                response = requests.get(f"https://api.pwnedpasswords.com/range/{prefix}")
+                if response.status_code == 200:
+                    hashes = (line.split(':') for line in response.text.splitlines())
+                    for h, count in hashes:
+                        if h == suffix:
+                            QMessageBox.warning(self, "Breach Detected", f"This password has been seen {count} times in data breaches! Please do not use it.")
+                            return
+                    QMessageBox.information(self, "Safe", "Good news! This password was not found in any known data breaches.")
+                else:
+                    QMessageBox.critical(self, "Error", f"Failed to connect to API: {response.status_code}")
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"An error occurred: {e}")
+
+    def check_email_breach(self):
+        import requests
+        email, ok = QInputDialog.getText(self, "Email Check", "Enter email to check:")
+        if ok and email:
+            # HIBP requires an API key for email checks.
+            # Using a placeholder implementation to handle the UI.
+            QMessageBox.information(self, "API Key Required", "The Email Breach Check requires a paid HaveIBeenPwned API key. Please implement an alternative API or add your key to the source code.")

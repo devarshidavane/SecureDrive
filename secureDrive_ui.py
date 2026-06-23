@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'secureDrive.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.11.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -176,7 +176,7 @@ class Ui_MainWindow(object):
         self.System_scan_logo.setMaximumSize(QSize(90, 90))
         self.System_scan_logo.setStyleSheet(u"border:none;")
         icon5 = QIcon()
-        icon5.addFile(u"icons/system scan.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon5.addFile(u":/icons/system scan.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.System_scan_logo.setIcon(icon5)
         self.System_scan_logo.setIconSize(QSize(80, 100))
 
