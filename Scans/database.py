@@ -28,8 +28,7 @@ def fetch_and_save_file(url, directory, filename, timeout=30):
             return None
         response.raise_for_status()
     except requests.RequestException as exc:
-        print(f"[SecureDrive] Download failed for {url}: {exc}")
-        return None
+        raise RuntimeError(f"Download failed for {url}: {exc}") from exc
 
     file_path.write_text(response.text, encoding="utf-8")
     return file_path
@@ -85,26 +84,46 @@ def insert_hashes(conn, table, files):
 
 
 def update_database():
-    print("[SecureDrive] Updating antivirus signatures...")
+    print("[SecureDrive] Updating antivirus signatures...", flush=True)
     downloaded_files = {}
 
     for prefix, base_url in BASE_URLS.items():
-        print(f"[SecureDrive] Downloading {prefix.upper()} hash files...")
+        print(
+            f"[SecureDrive] Downloading {prefix.upper()} hash files...",
+            flush=True,
+        )
         downloaded_files[prefix] = download_hash_files(base_url, prefix)
+
+    missing_sets = [
+        prefix.upper()
+        for prefix, files in downloaded_files.items()
+        if not files
+    ]
+    if missing_sets:
+        missing = ", ".join(missing_sets)
+        raise RuntimeError(
+            f"Signature update incomplete; no files available for: {missing}. "
+            "The existing database was preserved."
+        )
 
     conn, temporary_path = create_database()
     try:
         for prefix, files in downloaded_files.items():
             inserted = insert_hashes(conn, prefix, files)
-            print(f"[SecureDrive] Loaded {inserted} {prefix.upper()} hashes.")
+            print(
+                f"[SecureDrive] Loaded {inserted} {prefix.upper()} hashes.",
+                flush=True,
+            )
     finally:
         conn.close()
 
     os.replace(temporary_path, HASH_DB_PATH)
-    print("[SecureDrive] Antivirus signatures updated successfully.")
+    print(
+        "[SecureDrive] Antivirus signatures updated successfully.",
+        flush=True,
+    )
     time.sleep(1)
 
 
 if __name__ == "__main__":
     update_database()
-

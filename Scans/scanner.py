@@ -15,6 +15,7 @@ from paths import APP_ICON_PATH, HASH_DB_PATH, QUARANTINE_DIR, THREAT_LOG_PATH
 
 HASH_TABLES = ("md5", "sha1", "sha256")
 READ_CHUNK_SIZE = 8192
+PROGRESS_INTERVAL = 500
 
 
 def hash_file(file_path):
@@ -136,28 +137,63 @@ def get_all_drives():
 def run_full_scan(root_dirs=None, max_workers=8):
     roots = root_dirs or get_all_drives()
     roots = [Path(root) for root in roots if Path(root).exists()]
-    print(f"[SecureDrive] Full scan starting across {len(roots)} drive(s).")
+    print(
+        f"[SecureDrive] Full scan starting across {len(roots)} drive(s).",
+        flush=True,
+    )
 
     scanned = 0
     threats = 0
+    max_pending = max_workers * 4
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = []
+        pending = set()
         for root in roots:
             try:
                 for file_path in iter_files(root):
-                    futures.append(executor.submit(scan_file, file_path))
-            except OSError as exc:
-                print(f"[SecureDrive] Error walking {root}: {exc}")
+                    pending.add(executor.submit(scan_file, file_path))
+                    if len(pending) < max_pending:
+                        continue
 
-        for future in concurrent.futures.as_completed(futures):
+                    done, pending = concurrent.futures.wait(
+                        pending,
+                        return_when=concurrent.futures.FIRST_COMPLETED,
+                    )
+                    for future in done:
+                        scanned += 1
+                        try:
+                            if future.result():
+                                threats += 1
+                        except Exception as exc:
+                            print(f"[SecureDrive] Scan worker error: {exc}", flush=True)
+
+                        if scanned % PROGRESS_INTERVAL == 0:
+                            print(
+                                f"[SecureDrive] Scan progress: {scanned} files; "
+                                f"{threats} threat(s).",
+                                flush=True,
+                            )
+            except OSError as exc:
+                print(f"[SecureDrive] Error walking {root}: {exc}", flush=True)
+
+        for future in concurrent.futures.as_completed(pending):
             scanned += 1
             try:
                 if future.result():
                     threats += 1
             except Exception as exc:
-                print(f"[SecureDrive] Scan worker error: {exc}")
+                print(f"[SecureDrive] Scan worker error: {exc}", flush=True)
 
-    print(f"[SecureDrive] Full scan complete. Files scanned: {scanned}. Threats: {threats}.")
+            if scanned % PROGRESS_INTERVAL == 0:
+                print(
+                    f"[SecureDrive] Scan progress: {scanned} files; "
+                    f"{threats} threat(s).",
+                    flush=True,
+                )
+
+    print(
+        f"[SecureDrive] Full scan complete. Files scanned: {scanned}. "
+        f"Threats: {threats}.",
+        flush=True,
+    )
     return scanned, threats
-

@@ -266,8 +266,8 @@ border-radius: 12px;
                <string/>
               </property>
               <property name="icon">
-               <iconset>
-                <normaloff>icons/system scan.png</normaloff>icons/system scan.png</iconset>
+               <iconset resource="resources.qrc">
+                <normaloff>:/icons/system scan.png</normaloff>:/icons/system scan.png</iconset>
               </property>
               <property name="iconSize">
                <size>

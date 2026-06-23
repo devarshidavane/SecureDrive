@@ -176,7 +176,7 @@ class Ui_MainWindow(object):
         self.System_scan_logo.setMaximumSize(QSize(90, 90))
         self.System_scan_logo.setStyleSheet(u"border:none;")
         icon5 = QIcon()
-        icon5.addFile(u"icons/system scan.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon5.addFile(u":/icons/system scan.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.System_scan_logo.setIcon(icon5)
         self.System_scan_logo.setIconSize(QSize(80, 100))
 
