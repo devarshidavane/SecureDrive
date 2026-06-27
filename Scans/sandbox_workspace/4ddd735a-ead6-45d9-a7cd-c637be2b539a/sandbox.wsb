@@ -1,0 +1,12 @@
+<Configuration>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>C:\Dmce\Secure drive\UI\QT\Scans\sandbox_workspace\4ddd735a-ead6-45d9-a7cd-c637be2b539a</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\Desktop\Shared</SandboxFolder>
+      <ReadOnly>false</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>cmd.exe /c "C:\Users\WDAGUtilityAccount\Desktop\Shared\detonate.bat"</Command>
+  </LogonCommand>
+</Configuration>
