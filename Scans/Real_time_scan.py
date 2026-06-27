@@ -149,10 +149,42 @@ class NewFileHandler(FileSystemEventHandler):
 # ==============================
 
 def process_file(file_path):
-    time.sleep(1.5)
-    hashes = get_file_hashes(file_path)
-    if hashes:
-        check_hashes_in_db(file_path, hashes)
+    # Instead of an arbitrary sleep, wait until the file is fully written and accessible.
+    max_retries = 10
+    for _ in range(max_retries):
+        try:
+            # Try opening exclusively to ensure no other process is writing to it.
+            with open(file_path, "rb"):
+                pass
+            break
+        except (PermissionError, OSError):
+            time.sleep(0.5)
+    else:
+        print(f"[!] Could not access file {file_path} after multiple retries.")
+        return
+
+    # Check Bloom Filter first (Hash Signature)
+    try:
+        from scanner import get_bloom_filter, check_bloom_filter, hash_file
+        hashes = hash_file(file_path)
+        if hashes:
+            bloom = get_bloom_filter()
+            if check_bloom_filter(hashes, bloom):
+                print(f"[SecureDrive] Known threat signature detected via Bloom Filter.")
+                quarantine_file(file_path)
+                return
+    except ImportError:
+        pass
+        
+    # Real-Time Behavioral Hooks for Executables
+    if file_path.lower().endswith((".exe", ".bat", ".vbs")):
+        print(f"[+] Injecting Behavioral API Hooks into: {file_path}")
+        try:
+            from api_hooking import spawn_and_hook
+            # Spawning async to not block the watchdog thread
+            threading.Thread(target=spawn_and_hook, args=(file_path,), daemon=True).start()
+        except ImportError:
+            pass
 
 
 # ==============================
@@ -206,7 +238,7 @@ def quarantine_file(file_path):
             os.makedirs(quarantine_folder)
 
         file_name = os.path.basename(file_path)
-        new_name = f"{uuid.uuid4()}_{file_name}"
+        new_name = f"{uuid.uuid4()}_{file_name}.locked"
         new_path = os.path.join(quarantine_folder, new_name)
 
         shutil.move(file_path, new_path)
