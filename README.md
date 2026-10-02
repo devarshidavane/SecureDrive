@@ -1,42 +1,65 @@
-# Secure Drive
+<div align="center">
 
-Secure Drive is a Windows desktop antivirus-style application built with PySide6.
+<img src="https://raw.githubusercontent.com/devarshidavane/devarshidavane/main/header.svg" width="100%" alt="SecureDrive">
 
-## Project Structure
+<br>
 
-- App entry point: `main.py`
-- Main window/controller: `securedrive.py`
-- Active generated UI module: `ui_secureDrive.py`
-- Source Qt Designer file for the active UI: `secureDrive.ui`
-- Resource bundle source: `resources.qrc`
-- Generated resource module: `resources_rc.py`
-- Real-time scanner: `Scans/Real_time_scan.py`
-- Shared scan engine: `Scans/scanner.py`
-- Full-scan entry point: `Scans/full_scan.py`
-- Signature updater: `Scans/database.py`
-- Malware hash database: `Malware Hash Database/hashes.db`
+# `SECUREDRIVE`
 
-`secureDrive_ui.py` and `secure Drive.ui` are older/alternate UI outputs and are not imported by the app entry point.
+### Endpoint Security • Malware Detection • Threat Analysis
 
-## Setup
+<br>
 
-Create or refresh a virtual environment, then install dependencies:
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![PySide6](https://img.shields.io/badge/PySide6-Qt-41CD52?style=for-the-badge&logo=qt&logoColor=white)](https://doc.qt.io/qtforpython/)
+[![Windows](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://www.microsoft.com/windows)
+[![Security](https://img.shields.io/badge/Domain-Endpoint%20Security-8B5CF6?style=for-the-badge)](#)
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
+</div>
 
-Run the app:
+<br>
 
-```powershell
-.\.venv\Scripts\python.exe main.py
-```
+---
 
-## Notes
+<img src="https://raw.githubusercontent.com/devarshidavane/devarshidavane/main/h-about.svg" width="100%" alt="About SecureDrive">
 
-- The real-time scanner watches the user's Desktop and Downloads folders.
-- Detected files are moved into `Quarantine/`.
-- Threat detections are appended to `threat_log.txt`.
-- Full scans and signature updates run in background Qt processes.
-- Backend progress and completion messages appear on the Notifications page.
+## `>_ What is SecureDrive?`
+
+**SecureDrive** is a Windows-focused endpoint-security application built with Python and PySide6.
+
+The project explores how a lightweight endpoint scanner can combine:
+
+```text
+                    ┌─────────────────────┐
+                    │       FILE          │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   FILE ANALYSIS     │
+                    └──────────┬──────────┘
+                               │
+                    ┌──────────▼──────────┐
+                    │   HASH GENERATION   │
+                    │   MD5 / SHA-256     │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │ SIGNATURE DATABASE  │
+                    └──────────┬──────────┘
+                               │
+                     ┌─────────┴─────────┐
+                     │                   │
+                   MATCH              NO MATCH
+                     │                   │
+                     ▼                   ▼
+                ┌──────────┐        ┌─────────┐
+                │THREAT    │        │  SAFE   │
+                └────┬─────┘        └─────────┘
+                     │
+                     ▼
+                QUARANTINE
+                     │
+                     ▼
+                THREAT LOG
